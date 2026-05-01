@@ -121,7 +121,7 @@ img {max-width:80%; border-radius:16px; box-shadow:0 4px 16px rgba(0,0,0,0.3); m
         </div>
       </div>
       <div class="error" id="errorMsg"></div>
-      <p style="margin-top:12px; font-size:16px; color:#555;"><i>Cluenyaa tahun lahir kamuu! btw play musikknya jangan lupa pencet yaa!</i></p>
+      <p style="margin-top:12px; font-size:16px; color:#555;"><i>Cluenyaa tahun lahir kamuu!</i></p>
     </div>
   </div>
 
@@ -164,13 +164,27 @@ img {max-width:80%; border-radius:16px; box-shadow:0 4px 16px rgba(0,0,0,0.3); m
     </div>
   </div>
 
-  <!-- Slide 5 -->
+    <!-- Slide 5 -->
   <div class="slide" id="slide5">
     <div class="content">
-      <!-- <h1>Terima Kasih 🙏</h1> -->
-      <h1>Terima Kasihhh</h1>
+      <!-- <h1>Terima Kasih</h1> -->
+      <h1>Terima kasihh</h1>
       <img src="thanks.gif" alt="Terima Kasih">
-      <p>Makasii yaa uda bukaa webnyaa, semogaa bisaa bikin kamuu senengg sama hadiah kecil inii. happy birthdayy wafiqq!!</p>
+      <p>Makasii yaa udaa dibukaa webnyaa, semogaa kamuu senengg samaa hadiah kecil inii. happy birthday wafiqq!! oiyaa, coba deh pencet lanjut lagii</p>
+    </div>
+    <div class="nav-btns">
+      <button class="btn" onclick="prevSlide()">⬅ Kembali</button>
+      <button class="btn" onclick="nextSlide()">Lanjut ➡</button>
+    </div>
+  </div>
+
+  <!-- Slide 6 -->
+  <div class="slide" id="slide6">
+    <div class="content">
+      <!-- <h1>Terima Kasih 🙏</h1> -->
+      <h1></h1>
+      <img src="bunga1.png" alt="Hadiah">
+      <p>apaa yaa inii?? coba deh scan qrnyaa</p>
     </div>
     <div class="nav-btns" style="justify-content:center;">
       <button class="btn" onclick="prevSlide()">⬅ Kembali</button>
@@ -179,7 +193,22 @@ img {max-width:80%; border-radius:16px; box-shadow:0 4px 16px rgba(0,0,0,0.3); m
 </div>
 
 <!-- Tombol musik toggle -->
-<button id="musicToggle" onclick="toggleMusic()">▶ Play Musik</button>
+<audio id="bgMusic" loop>
+    <source src="musik.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    const music = document.getElementById('bgMusic');
+
+    function playMusic() {
+        music.play().catch(() => {});
+        document.removeEventListener('click', playMusic);
+        document.removeEventListener('touchstart', playMusic);
+    }
+
+    document.addEventListener('click', playMusic);
+    document.addEventListener('touchstart', playMusic);
+</script>
 
 <script>
 let currentSlide=1;
@@ -209,7 +238,7 @@ function checkPin(){
     inputs.forEach(i=>i.value="");
   }
 }
-function nextSlide(){if(currentSlide<5) animateSlides(currentSlide,currentSlide+1);}
+function nextSlide(){if(currentSlide<6) animateSlides(currentSlide,currentSlide+1);}
 function prevSlide(){if(currentSlide>2) animateSlides(currentSlide,currentSlide-1);}
 function pressNum(num){
   const inputs=document.querySelectorAll('#slide1 input');
@@ -231,7 +260,7 @@ function toggleMusic(){
 // Partikel love
 const canvas=document.getElementById("canvas"); const ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth; canvas.height=window.innerHeight;
-class Heart{constructor(){this.x=Math.random()*canvas.width; this.y=canvas.height+Math.random()*100; this.size=10+Math.random()*20; this.speed=0.5+Math.random()*1.5; this.alpha=0.5+Math.random()*0.5; this.color="rgba(255,0,100,"+this.alpha+")";}draw(){ctx.save();ctx.translate(this.x,this.y);ctx.fillStyle=this.color;ctx.beginPath();ctx.moveTo(0,-this.size/2);ctx.bezierCurveTo(this.size/2,-this.size,this.size,-this.size/4,0,this.size);ctx.bezierCurveTo(-this.size,-this.size/4,-this.size/2,-this.size,0,-this.size/2);ctx.closePath();ctx.fill();ctx.restore();}update(){this.y-=this.speed;if(this.y<-50){this.y=canvas.height+50;this.x=Math.random()*canvas.width;}this.draw();}}
+class Heart{constructor(){this.x=Math.random()*canvas.width; this.y=canvas.height+Math.random()*100; this.size=10+Math.random()*20; this.speed=0.5+Math.random()*1.5; this.alpha=0.5+Math.random()*0.5; this.color = "rgba(255,105,101," + this.alpha + ")";}draw(){ctx.save();ctx.translate(this.x,this.y);ctx.fillStyle=this.color;ctx.beginPath();ctx.moveTo(0,-this.size/2);ctx.bezierCurveTo(this.size/2,-this.size,this.size,-this.size/4,0,this.size);ctx.bezierCurveTo(-this.size,-this.size/4,-this.size/2,-this.size,0,-this.size/2);ctx.closePath();ctx.fill();ctx.restore();}update(){this.y-=this.speed;if(this.y<-50){this.y=canvas.height+50;this.x=Math.random()*canvas.width;}this.draw();}}
 let hearts=[]; for(let i=0;i<40;i++){hearts.push(new Heart());}
 function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);hearts.forEach(h=>h.update()); requestAnimationFrame(animate);}
 animate(); window.addEventListener("resize",()=>{canvas.width=window.innerWidth; canvas.height=window.innerHeight;});
