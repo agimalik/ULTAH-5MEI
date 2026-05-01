@@ -198,16 +198,29 @@ img {max-width:80%; border-radius:16px; box-shadow:0 4px 16px rgba(0,0,0,0.3); m
 </audio>
 
 <script>
-    const music = document.getElementById('bgMusic');
+const music = document.getElementById('bgMusic');
+let musicStarted = false;
 
-    function playMusic() {
-        music.play().catch(() => {});
-        document.removeEventListener('click', playMusic);
-        document.removeEventListener('touchstart', playMusic);
-    }
+function startMusic() {
+    if (musicStarted) return;
 
-    document.addEventListener('click', playMusic);
-    document.addEventListener('touchstart', playMusic);
+    music.play()
+        .then(() => {
+            musicStarted = true;
+            removeListeners();
+        })
+        .catch(() => {});
+}
+
+function removeListeners() {
+    document.removeEventListener('click', startMusic);
+    document.removeEventListener('touchstart', startMusic);
+    document.removeEventListener('pointerdown', startMusic);
+}
+
+document.addEventListener('click', startMusic);
+document.addEventListener('touchstart', startMusic);
+document.addEventListener('pointerdown', startMusic);
 </script>
 
 <script>
@@ -250,12 +263,6 @@ function deleteNum(){
 }
 
 // Musik toggle
-let audio=new Audio("musik.mp3"); audio.loop=true;
-let isPlaying=false;
-function toggleMusic(){
-  if(isPlaying){audio.pause(); isPlaying=false; document.getElementById('musicToggle').innerText="▶ Play Musik";}
-  else{audio.play(); isPlaying=true; document.getElementById('musicToggle').innerText="⏸ Stop Musik";}
-}
 
 // Partikel love
 const canvas=document.getElementById("canvas"); const ctx=canvas.getContext("2d");
